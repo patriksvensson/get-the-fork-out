@@ -10,7 +10,7 @@ namespace GetTheForkOut
             var app = new CommandApp<DeleteCommand>();
             app.Configure(config =>
             {
-                config.SetApplicationName("dotnet gtfo");
+                config.SetApplicationName("dotnet get-the-fork-out");
             });
 
             return app.Run(args);
