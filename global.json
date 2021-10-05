@@ -1,0 +1,7 @@
+{
+    "projects": [ "src" ],
+    "sdk": {
+      "version": "5.0.400",
+      "rollForward": "latestFeature"
+    }
+  }

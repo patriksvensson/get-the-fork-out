@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PackageId>get-the-fork-out</PackageId>
+    <Nullable>enable</Nullable>
+    <LangVersion>9</LangVersion>
+    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
+    <ToolCommandName>dotnet-get-the-fork-out</ToolCommandName>
+    <PackAsTool>true</PackAsTool>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MinVer" PrivateAssets="All" Version="2.3.1" />
+    <PackageReference Include="Octokit" Version="0.50.0" />
+    <PackageReference Include="Spectre.Console" Version="0.42.0" />
+    <PackageReference Include="Spectre.IO" Version="0.6.0" />
+  </ItemGroup>
+
+  <Target Name="Versioning" BeforeTargets="MinVer">
+    <PropertyGroup Label="Build">
+      <MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>
+      <MinVerVerbosity>normal</MinVerVerbosity>
+    </PropertyGroup>
+  </Target>
+
+  <PropertyGroup Label="Package Information">
+    <Description>A dotnet tool to delete GitHub forks for a user.</Description>
+    <Authors>Patrik Svensson</Authors>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/patriksvensson/get-the-fork-out</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/patriksvensson/get-the-fork-out</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+</Project>
