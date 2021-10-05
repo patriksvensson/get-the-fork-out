@@ -1,10 +1,10 @@
-# get-the-fork-out
+# Get the fork out
 
 A dotnet tool to delete GitHub forks for a user.
 
 ## Disclaimer
 
-Do not run this application without fully knowing what it does.
+Do not run this application without fully knowing what it does.  
 Deleted forks CAN NOT be recovered once deleted.
 
 ## Installing
