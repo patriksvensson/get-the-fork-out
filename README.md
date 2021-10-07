@@ -22,7 +22,7 @@ USAGE:
 ARGUMENTS:
     <GITHUB-API-KEY>    The GitHub API key to use.
                         The API key must have the following permissions: 
-                        public_repo, delete_repo, delete_packages   
+                        public_repo, delete_repo   
 OPTIONS:
     -h, --help                      Prints help information
         --i-know-what-i-am-doing    No prompts will be shown.
