@@ -35,10 +35,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup dotnet 5.0.400
+      - name: Setup dotnet 5.x
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.400
+          dotnet-version: '5.0.x'
+
+      - name: Setup dotnet 6.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
 
       - name: Build
         shell: bash
@@ -61,10 +66,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup dotnet 5.0.400
+      - name: Setup dotnet 5.x
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.400
+          dotnet-version: '5.0.x'
+
+      - name: Setup dotnet 6.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
 
       - name: Publish
         shell: bash
