@@ -1,9 +1,12 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Publish
 
 on:
   push:
     tags:
       - '*'
+    branches:
+      - main
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -16,59 +19,17 @@ jobs:
   ###################################################
 
   build:
-    name: Build
-    if: "!contains(github.event.head_commit.message, 'skip-ci')"
-    strategy:
-      matrix:
-        kind: ['linux', 'windows', 'macOS']
-        include:
-          - kind: linux
-            os: ubuntu-latest
-          - kind: windows
-            os: windows-latest
-          - kind: macOS
-            os: macos-latest
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup dotnet 5.0.400
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.400
-
-      - name: Build
-        shell: bash
-        run: |
-          dotnet tool restore
-          dotnet cake
-
-  ###################################################
-  # PUBLISH
-  ###################################################
-
-  publish:
-    name: Publish
-    needs: [build]
-    if: "!contains(github.event.head_commit.message, 'skip-ci')"
+    name: Publish NuGet Packages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Setup dotnet 5.0.400
+      - name: Setup .NET SDK (global.json)
         uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.400
 
       - name: Publish
         shell: bash
-        run: |
-          dotnet tool restore
-          dotnet cake --target="publish" \
-            --nuget-key="${{secrets.NUGET_API_KEY}}"
+        run: dotnet build.cs --nuget-key="${{secrets.NUGET_API_KEY}}"

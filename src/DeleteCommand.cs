@@ -1,11 +1,7 @@
 using Octokit;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GetTheForkOut
 {
@@ -33,12 +29,14 @@ namespace GetTheForkOut
             }
         }
 
-        public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
+        protected override async Task<int> ExecuteAsync(CommandContext context, Settings settings, CancellationToken cancellationToken)
         {
-            var client = new GitHubClient(new ProductHeaderValue("Get-The-Fork-Out"));
-            client.Credentials = new Credentials(settings.ApiKey);
-            var user = await client.User.Current();
+            var client = new GitHubClient(new ProductHeaderValue("Get-The-Fork-Out"))
+            {
+                Credentials = new Credentials(settings.ApiKey)
+            };
 
+            var user = await client.User.Current();
             var forks = await GetAllForks(client);
             if (!forks.Any())
             {
@@ -101,7 +99,7 @@ namespace GetTheForkOut
             var result = new List<Repository>();
 
             var user = await client.User.Current();
-            var repositories = await AnsiConsole.Status().StartAsync("Retrieving forks...", async (status) =>
+            var repositories = await AnsiConsole.Status().StartAsync("Retrieving forks...", async _ =>
             {
                 while (page < 10)
                 {
